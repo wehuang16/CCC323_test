@@ -1,0 +1,20 @@
+within CCC323_test.Examples;
+model SimpleInputOutput2
+  Modelica.Blocks.Interfaces.RealInput T_inlet
+    annotation (Placement(transformation(extent={{-140,18},{-100,58}})));
+  Modelica.Blocks.Interfaces.RealOutput T_outlet
+    annotation (Placement(transformation(extent={{100,26},{120,46}})));
+  Modelica.Blocks.Sources.Constant const1(k=5)
+    annotation (Placement(transformation(extent={{-64,54},{-44,74}})));
+  Modelica.Blocks.Math.Add add(k1=+1, k2=+1)
+    annotation (Placement(transformation(extent={{-16,24},{4,44}})));
+equation
+  connect(const1.y, add.u1) annotation (Line(points={{-43,64},{-30,64},{-30,40},
+          {-18,40}}, color={0,0,127}));
+  connect(T_inlet, add.u2) annotation (Line(points={{-120,38},{-70,38},{-70,28},
+          {-18,28}}, color={0,0,127}));
+  connect(add.y, T_outlet) annotation (Line(points={{5,34},{58,34},{58,36},{110,
+          36}}, color={0,0,127}));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+        coordinateSystem(preserveAspectRatio=false)));
+end SimpleInputOutput2;

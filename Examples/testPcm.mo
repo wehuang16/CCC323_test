@@ -1,4 +1,4 @@
-within weiping_CCC323_test.Examples;
+within CCC323_test.Examples;
 model testPcm
   replaceable package MediumWater=Buildings.Media.Water "Water medium";
   replaceable package MediumAir=Buildings.Media.Air "Air medium";

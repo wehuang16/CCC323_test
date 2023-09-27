@@ -1,4 +1,4 @@
-within weiping_CCC323_test.Examples;
+within CCC323_test.Examples;
 model testSensibleHeat
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.2 "Nominal mass flowrate of Tes";
   Buildings.Fluid.Sources.MassFlowSource_T boundary(

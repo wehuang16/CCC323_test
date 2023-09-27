@@ -1,3 +1,3 @@
 within ;
-package weiping_CCC323_test
-end weiping_CCC323_test;
+package CCC323_test
+end CCC323_test;

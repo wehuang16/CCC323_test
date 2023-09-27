@@ -1,4 +1,4 @@
-within weiping_CCC323_test.Examples;
+within CCC323_test.Examples;
 model pcmChargeTest
   pcmCharge pcmCharge1
     annotation (Placement(transformation(extent={{0,-42},{24,-18}})));

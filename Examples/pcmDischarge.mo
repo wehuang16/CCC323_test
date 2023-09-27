@@ -1,4 +1,4 @@
-within weiping_CCC323_test.Examples;
+within CCC323_test.Examples;
 model pcmDischarge
   replaceable package MediumWater=Buildings.Media.Water "Water medium";
   replaceable package MediumAir=Buildings.Media.Air "Air medium";
@@ -46,8 +46,8 @@ model pcmDischarge
     annotation (Placement(transformation(extent={{16,-34},{36,-14}})));
   Modelica.Blocks.Math.MultiProduct multiProduct(nu=3)
     annotation (Placement(transformation(extent={{52,-58},{64,-46}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTem1(redeclare package Medium
-      = Buildings.Media.Antifreeze.PropyleneGlycolWater (property_T=293.15, X_a=
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem1(redeclare package Medium =
+        Buildings.Media.Antifreeze.PropyleneGlycolWater (property_T=293.15, X_a=
            0.50), m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{-46,44},{-26,64}})));
   Modelica.Blocks.Interfaces.RealInput m_flow
@@ -62,6 +62,10 @@ model pcmDischarge
     annotation (Placement(transformation(extent={{100,-86},{120,-66}})));
   Modelica.Blocks.Interfaces.RealOutput Q_flow
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
+  Buildings.Fluid.Sensors.DensityTwoPort senDen(redeclare package Medium =
+        Buildings.Media.Antifreeze.PropyleneGlycolWater (property_T=293.15, X_a=
+           0.50), m_flow_nominal=m_flow_nominal)
+    annotation (Placement(transformation(extent={{-74,60},{-54,80}})));
 equation
   connect(pcmFourPort.port_b1, senTem.port_a) annotation (Line(points={{10,
           40.46},{24,40.46},{24,22},{38,22}}, color={0,127,255}));
@@ -84,8 +88,6 @@ equation
           {-12,54},{-12,60},{16,60},{16,29.54},{10,29.54}}, color={0,127,255}));
   connect(senTem1.T, add.u1) annotation (Line(points={{-36,65},{-36,70},{-48,70},
           {-48,-18},{14,-18}}, color={0,0,127}));
-  connect(boundary.ports[1], senTem1.port_a) annotation (Line(points={{-60,34},
-          {-54,34},{-54,54},{-46,54}}, color={0,127,255}));
   connect(boundary.m_flow_in, m_flow) annotation (Line(points={{-82,42},{-88,42},
           {-88,0},{-120,0}}, color={0,0,127}));
   connect(m_flow, multiProduct.u[3]) annotation (Line(points={{-120,0},{-90,0},{
@@ -100,6 +102,11 @@ equation
           {110,-76}}, color={0,0,127}));
   connect(multiProduct.y, Q_flow) annotation (Line(points={{65.02,-52},{66,-52},
           {66,-46},{74,-46},{74,-10},{110,-10}}, color={0,0,127}));
+  connect(boundary.ports[1], senDen.port_a) annotation (Line(points={{-60,34},{
+          -58,34},{-58,52},{-86,52},{-86,68},{-74,68},{-74,70}}, color={0,127,
+          255}));
+  connect(senDen.port_b, senTem1.port_a)
+    annotation (Line(points={{-54,70},{-54,54},{-46,54}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(StopTime=86400, Interval=60));

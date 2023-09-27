@@ -1,4 +1,4 @@
-within weiping_CCC323_test.Examples;
+within CCC323_test.Examples;
 model pcmCharge
   replaceable package MediumWater=Buildings.Media.Water "Water medium";
   replaceable package MediumAir=Buildings.Media.Air "Air medium";
@@ -46,8 +46,8 @@ model pcmCharge
     annotation (Placement(transformation(extent={{16,-34},{36,-14}})));
   Modelica.Blocks.Math.MultiProduct multiProduct(nu=3)
     annotation (Placement(transformation(extent={{52,-58},{64,-46}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTem1(redeclare package Medium
-      = Buildings.Media.Antifreeze.PropyleneGlycolWater (property_T=293.15, X_a=
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem1(redeclare package Medium =
+        Buildings.Media.Antifreeze.PropyleneGlycolWater (property_T=293.15, X_a=
            0.50), m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{-46,44},{-26,64}})));
   Modelica.Blocks.Interfaces.RealInput m_flow
