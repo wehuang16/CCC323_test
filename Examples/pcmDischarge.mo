@@ -10,24 +10,26 @@ model pcmDischarge
     TStart_pcm=274.15,
     Design(Tes_nominal=22.829*3600000, PCM(
         k=matPro.kPCMCoo,
-        c=matPro.cPCMCoo,
+        c=1712,
         d=matPro.dPCMCoo,
         LHea=matPro.LHeaCoo,
         TSol=matPro.TSolCoo,
-        TLiq=matPro.TLiqCoo)))         annotation (Placement(transformation(
+        TLiq=matPro.TLiqCoo)),
+    redeclare package Medium = Buildings.Media.Antifreeze.PropyleneGlycolWater
+        (property_T=284.15, X_a=0.50)) annotation (Placement(transformation(
         extent={{13,13},{-13,-13}},
         rotation=180,
         origin={-3,35})));
   Buildings.Fluid.Sources.MassFlowSource_T boundary(
     redeclare package Medium = Buildings.Media.Antifreeze.PropyleneGlycolWater
-        (property_T=293.15, X_a=0.50),
+        (property_T=284.15, X_a=0.50),
     use_m_flow_in=true,
     m_flow=0.8*m_flow_nominal,
     use_T_in=true,
     T=301.15,
     nPorts=1) annotation (Placement(transformation(extent={{-80,24},{-60,44}})));
   Buildings.Fluid.Sources.Boundary_pT bou(redeclare package Medium =
-        Buildings.Media.Antifreeze.PropyleneGlycolWater (property_T=293.15, X_a=
+        Buildings.Media.Antifreeze.PropyleneGlycolWater (property_T=284.15, X_a=
            0.50), nPorts=1)    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
@@ -35,19 +37,19 @@ model pcmDischarge
   RTUPCM.HVAC.Examples.Data.BaseClasses.MAPR matPro
     annotation (Placement(transformation(extent={{70,80},{90,100}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem(redeclare package Medium =
-        Buildings.Media.Antifreeze.PropyleneGlycolWater (property_T=293.15, X_a=
+        Buildings.Media.Antifreeze.PropyleneGlycolWater (property_T=284.15, X_a=
            0.50), m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{38,12},{58,32}})));
   Modelica.Blocks.Continuous.Integrator integrator
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
-  Modelica.Blocks.Sources.Constant const1(k=3530.2)
+  Modelica.Blocks.Sources.Constant const1(k=3495.55)
     annotation (Placement(transformation(extent={{-58,-80},{-38,-60}})));
   Modelica.Blocks.Math.Add add(k1=+1, k2=-1)
     annotation (Placement(transformation(extent={{16,-34},{36,-14}})));
   Modelica.Blocks.Math.MultiProduct multiProduct(nu=3)
     annotation (Placement(transformation(extent={{52,-58},{64,-46}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem1(redeclare package Medium =
-        Buildings.Media.Antifreeze.PropyleneGlycolWater (property_T=293.15, X_a=
+        Buildings.Media.Antifreeze.PropyleneGlycolWater (property_T=284.15, X_a=
            0.50), m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{-46,44},{-26,64}})));
   Modelica.Blocks.Interfaces.RealInput m_flow
@@ -63,9 +65,11 @@ model pcmDischarge
   Modelica.Blocks.Interfaces.RealOutput Q_flow
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
   Buildings.Fluid.Sensors.DensityTwoPort senDen(redeclare package Medium =
-        Buildings.Media.Antifreeze.PropyleneGlycolWater (property_T=293.15, X_a=
+        Buildings.Media.Antifreeze.PropyleneGlycolWater (property_T=284.15, X_a=
            0.50), m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{-74,60},{-54,80}})));
+  Modelica.Blocks.Interfaces.RealOutput T_outlet
+    annotation (Placement(transformation(extent={{100,50},{120,70}})));
 equation
   connect(pcmFourPort.port_b1, senTem.port_a) annotation (Line(points={{10,
           40.46},{24,40.46},{24,22},{38,22}}, color={0,127,255}));
@@ -102,11 +106,13 @@ equation
           {110,-76}}, color={0,0,127}));
   connect(multiProduct.y, Q_flow) annotation (Line(points={{65.02,-52},{66,-52},
           {66,-46},{74,-46},{74,-10},{110,-10}}, color={0,0,127}));
-  connect(boundary.ports[1], senDen.port_a) annotation (Line(points={{-60,34},{
-          -58,34},{-58,52},{-86,52},{-86,68},{-74,68},{-74,70}}, color={0,127,
+  connect(boundary.ports[1], senDen.port_a) annotation (Line(points={{-60,34},{-58,
+          34},{-58,52},{-86,52},{-86,68},{-74,68},{-74,70}},     color={0,127,
           255}));
   connect(senDen.port_b, senTem1.port_a)
     annotation (Line(points={{-54,70},{-54,54},{-46,54}}, color={0,127,255}));
+  connect(senTem.T, T_outlet) annotation (Line(points={{48,33},{50,33},{50,60},{
+          110,60}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(StopTime=86400, Interval=60));

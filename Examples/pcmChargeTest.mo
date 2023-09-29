@@ -2,9 +2,9 @@ within CCC323_test.Examples;
 model pcmChargeTest
   pcmCharge pcmCharge1
     annotation (Placement(transformation(extent={{0,-42},{24,-18}})));
-  Modelica.Blocks.Sources.Constant const3(k=273.15 + 9)
+  Modelica.Blocks.Sources.Constant const3(k=273.15 + 0.1)
     annotation (Placement(transformation(extent={{-50,-30},{-30,-10}})));
-  Modelica.Blocks.Sources.Constant const4(k=0.1)
+  Modelica.Blocks.Sources.Constant const4(k=0.2)
     annotation (Placement(transformation(extent={{-44,-74},{-24,-54}})));
 equation
   connect(const3.y, pcmCharge1.T_inlet) annotation (Line(points={{-29,-20},{-16,

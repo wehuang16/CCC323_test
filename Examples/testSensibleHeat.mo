@@ -19,7 +19,7 @@ model testSensibleHeat
   Buildings.Fluid.HeatExchangers.Heater_T hea(
     redeclare package Medium = Buildings.Media.Antifreeze.PropyleneGlycolWater
         (property_T=293.15, X_a=0.50),
-    m_flow_nominal=1,
+    m_flow_nominal=0.2,
     dp_nominal=0)
     annotation (Placement(transformation(extent={{-2,18},{18,38}})));
   Modelica.Blocks.Sources.Constant const(k=273.15 + 2)

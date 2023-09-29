@@ -10,24 +10,27 @@ model pcmCharge
     TStart_pcm=294.15,
     Design(Tes_nominal=22.829*3600000, PCM(
         k=matPro.kPCMCoo,
-        c=matPro.cPCMCoo,
+        c=1712,
         d=matPro.dPCMCoo,
         LHea=matPro.LHeaCoo,
         TSol=matPro.TSolCoo,
-        TLiq=matPro.TLiqCoo)))         annotation (Placement(transformation(
+        TLiq=matPro.TLiqCoo)),
+    redeclare package Medium =
+        Buildings.Media.Antifreeze.PropyleneGlycolWater (property_T=284.15, X_a=
+           0.50))                      annotation (Placement(transformation(
         extent={{13,13},{-13,-13}},
         rotation=180,
         origin={-3,35})));
   Buildings.Fluid.Sources.MassFlowSource_T boundary(
     redeclare package Medium = Buildings.Media.Antifreeze.PropyleneGlycolWater
-        (property_T=293.15, X_a=0.50),
+        (property_T=284.15, X_a=0.50),
     use_m_flow_in=true,
     m_flow=0.8*m_flow_nominal,
     use_T_in=true,
     T=301.15,
     nPorts=1) annotation (Placement(transformation(extent={{-80,24},{-60,44}})));
   Buildings.Fluid.Sources.Boundary_pT bou(redeclare package Medium =
-        Buildings.Media.Antifreeze.PropyleneGlycolWater (property_T=293.15, X_a=
+        Buildings.Media.Antifreeze.PropyleneGlycolWater (property_T=284.15, X_a=
            0.50), nPorts=1)    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
@@ -35,19 +38,19 @@ model pcmCharge
   RTUPCM.HVAC.Examples.Data.BaseClasses.MAPR matPro
     annotation (Placement(transformation(extent={{70,80},{90,100}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem(redeclare package Medium =
-        Buildings.Media.Antifreeze.PropyleneGlycolWater (property_T=293.15, X_a=
+        Buildings.Media.Antifreeze.PropyleneGlycolWater (property_T=284.15, X_a=
            0.50), m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{38,12},{58,32}})));
   Modelica.Blocks.Continuous.Integrator integrator
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
-  Modelica.Blocks.Sources.Constant const1(k=3530.2)
+  Modelica.Blocks.Sources.Constant const1(k=3495.55)
     annotation (Placement(transformation(extent={{-58,-80},{-38,-60}})));
   Modelica.Blocks.Math.Add add(k1=+1, k2=-1)
     annotation (Placement(transformation(extent={{16,-34},{36,-14}})));
   Modelica.Blocks.Math.MultiProduct multiProduct(nu=3)
     annotation (Placement(transformation(extent={{52,-58},{64,-46}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem1(redeclare package Medium =
-        Buildings.Media.Antifreeze.PropyleneGlycolWater (property_T=293.15, X_a=
+        Buildings.Media.Antifreeze.PropyleneGlycolWater (property_T=284.15, X_a=
            0.50), m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{-46,44},{-26,64}})));
   Modelica.Blocks.Interfaces.RealInput m_flow
@@ -66,6 +69,8 @@ model pcmCharge
     annotation (Placement(transformation(extent={{66,-130},{86,-110}})));
   Modelica.Blocks.Math.Add add1(k1=+1, k2=+1)
     annotation (Placement(transformation(extent={{108,-90},{128,-70}})));
+  Modelica.Blocks.Interfaces.RealOutput T_outlet
+    annotation (Placement(transformation(extent={{140,46},{160,66}})));
 equation
   connect(pcmFourPort.port_b1, senTem.port_a) annotation (Line(points={{10,
           40.46},{24,40.46},{24,22},{38,22}}, color={0,127,255}));
@@ -108,6 +113,8 @@ equation
           92.5,-86},{106,-86}}, color={0,0,127}));
   connect(add1.y, SOC) annotation (Line(points={{129,-80},{134,-80},{134,-76},{
           150,-76}}, color={0,0,127}));
+  connect(senTem.T, T_outlet)
+    annotation (Line(points={{48,33},{48,56},{150,56}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -140},{140,100}})),                                  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},{140,
