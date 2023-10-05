@@ -6,3 +6,6 @@ pcmChargeTest
 pcmDischargeTest
 SimpleInputOutput4
 testBlock
+simpleController
+exampleInputOutput
+exampleInputOutput2

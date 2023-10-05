@@ -2,9 +2,9 @@ within CCC323_test.Examples;
 model pcmDischargeTest
   pcmDischarge pcmDischarge1
     annotation (Placement(transformation(extent={{0,48},{20,68}})));
-  Modelica.Blocks.Sources.Constant const1(k=273.15 + 25)
+  Modelica.Blocks.Sources.Constant const1(k=273.15 + 19.28)
     annotation (Placement(transformation(extent={{-68,62},{-48,82}})));
-  Modelica.Blocks.Sources.Constant const2(k=0.2)
+  Modelica.Blocks.Sources.Constant const2(k=1.785)
     annotation (Placement(transformation(extent={{-62,18},{-42,38}})));
 equation
   connect(const2.y, pcmDischarge1.m_flow) annotation (Line(points={{-41,28},{

@@ -2,16 +2,16 @@ within CCC323_test.Examples;
 model testPcm
   replaceable package MediumWater=Buildings.Media.Water "Water medium";
   replaceable package MediumAir=Buildings.Media.Air "Air medium";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 3 "Nominal mass flowrate of Tes";
-  parameter Modelica.SIunits.Temperature T_inlet = 273.15+26 "T_inlet";
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.5 "Nominal mass flowrate of Tes";
+  parameter Modelica.SIunits.Temperature T_inlet = 273.15+0.1 "T_inlet";
   RTUPCM.Fluid.HeatExchangers.BaseClasses.CoilRegisterFourPort
                                                         pcmFourPort(
     m1_flow_nominal=m_flow_nominal/2,
     m2_flow_nominal=m_flow_nominal/2,
-    TStart_pcm=274.15,
+    TStart_pcm=294.15,
     Design(Tes_nominal=22.829*3600000, PCM(
         k=matPro.kPCMCoo,
-        c=1712,
+        c=2116,
         d=matPro.dPCMCoo,
         LHea=matPro.LHeaCoo,
         TSol=matPro.TSolCoo,
@@ -45,7 +45,7 @@ model testPcm
     annotation (Placement(transformation(extent={{38,12},{58,32}})));
   Modelica.Blocks.Continuous.Integrator integrator
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
-  Modelica.Blocks.Sources.Constant const(k=0.1)
+  Modelica.Blocks.Sources.Constant const(k=1.5)
     annotation (Placement(transformation(extent={{18,-62},{38,-42}})));
   Modelica.Blocks.Sources.Constant const1(k=3530.2)
     annotation (Placement(transformation(extent={{18,-94},{38,-74}})));

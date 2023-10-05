@@ -12,9 +12,9 @@ model SimpleInputOutput4
     annotation (Placement(transformation(extent={{100,-64},{120,-44}})));
   Modelica.Blocks.Sources.Ramp ramp(
     height=10,
-    duration=85200,
+    duration=43200,
     offset=285,
-    startTime=600)
+    startTime=21600)
     annotation (Placement(transformation(extent={{24,-62},{44,-42}})));
   Modelica.Blocks.Interfaces.RealInput T_inlet2
     annotation (Placement(transformation(extent={{-140,-18},{-100,22}})));

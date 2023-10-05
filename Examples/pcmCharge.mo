@@ -2,7 +2,7 @@ within CCC323_test.Examples;
 model pcmCharge
   replaceable package MediumWater=Buildings.Media.Water "Water medium";
   replaceable package MediumAir=Buildings.Media.Air "Air medium";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 3 "Nominal mass flowrate of Tes";
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.5 "Nominal mass flowrate of Tes";
   RTUPCM.Fluid.HeatExchangers.BaseClasses.CoilRegisterFourPort
                                                         pcmFourPort(
     m1_flow_nominal=m_flow_nominal/2,
@@ -10,7 +10,7 @@ model pcmCharge
     TStart_pcm=294.15,
     Design(Tes_nominal=22.829*3600000, PCM(
         k=matPro.kPCMCoo,
-        c=1712,
+        c=2116,
         d=matPro.dPCMCoo,
         LHea=matPro.LHeaCoo,
         TSol=matPro.TSolCoo,
