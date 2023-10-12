@@ -4,14 +4,13 @@ model testPcm
   replaceable package MediumAir=Buildings.Media.Air "Air medium";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.5 "Nominal mass flowrate of Tes";
   parameter Modelica.SIunits.Temperature T_inlet = 273.15+0.1 "T_inlet";
-  RTUPCM.Fluid.HeatExchangers.BaseClasses.CoilRegisterFourPort
-                                                        pcmFourPort(
+  BaseClasses.CoilRegisterFourPort                      pcmFourPort(
     m1_flow_nominal=m_flow_nominal/2,
     m2_flow_nominal=m_flow_nominal/2,
     TStart_pcm=294.15,
-    Design(Tes_nominal=22.829*3600000, PCM(
+    Design(Tes_nominal=12.797*3600000, PCM(
         k=matPro.kPCMCoo,
-        c=2116,
+        c=2185,
         d=matPro.dPCMCoo,
         LHea=matPro.LHeaCoo,
         TSol=matPro.TSolCoo,
@@ -20,7 +19,7 @@ model testPcm
         (property_T=284.15, X_a=0.50)) annotation (Placement(transformation(
         extent={{13,13},{-13,-13}},
         rotation=180,
-        origin={-5,37})));
+        origin={-7,37})));
 
 
 
@@ -48,8 +47,8 @@ model testPcm
   Modelica.Blocks.Sources.Constant const(k=1.5)
     annotation (Placement(transformation(extent={{18,-62},{38,-42}})));
   Modelica.Blocks.Sources.Constant const1(k=3530.2)
-    annotation (Placement(transformation(extent={{18,-94},{38,-74}})));
-  Modelica.Blocks.Math.Add add(k1=+1, k2=-1)
+    annotation (Placement(transformation(extent={{38,-88},{58,-68}})));
+  Modelica.Blocks.Math.Add add(k1=-1, k2=+1)
     annotation (Placement(transformation(extent={{18,-34},{38,-14}})));
   Modelica.Blocks.Math.MultiProduct multiProduct(nu=3)
     annotation (Placement(transformation(extent={{52,-58},{64,-46}})));
@@ -85,10 +84,10 @@ model testPcm
            0.50), m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{-78,30},{-58,50}})));
 equation
-  connect(pcmFourPort.port_b1, senTem.port_a) annotation (Line(points={{8,42.46},
+  connect(pcmFourPort.port_b1, senTem.port_a) annotation (Line(points={{6,42.46},
           {24,42.46},{24,22},{38,22}},        color={0,127,255}));
-  connect(pcmFourPort.port_b2, senTem.port_a) annotation (Line(points={{-18,
-          31.54},{-30,31.54},{-30,28},{-40,28},{-40,12},{38,12},{38,22}}, color=
+  connect(pcmFourPort.port_b2, senTem.port_a) annotation (Line(points={{-20,31.54},
+          {-30,31.54},{-30,28},{-40,28},{-40,12},{38,12},{38,22}},        color=
          {0,127,255}));
   connect(senTem.port_b, bou.ports[1]) annotation (Line(points={{58,22},{68,22},
           {68,30},{84,30}}, color={0,127,255}));
@@ -111,9 +110,9 @@ equation
   connect(lessEqualThreshold.y, switch1.u2) annotation (Line(points={{-9,-56},{
           -4,-56},{-4,-24},{-88,-24},{-88,6},{-80,6}}, color={255,0,255}));
   connect(senTem1.port_b, pcmFourPort.port_a1) annotation (Line(points={{-26,54},
-          {-22,54},{-22,42.46},{-18,42.46}}, color={0,127,255}));
+          {-22,54},{-22,42.46},{-20,42.46}}, color={0,127,255}));
   connect(senTem1.port_b, pcmFourPort.port_a2) annotation (Line(points={{-26,54},
-          {-12,54},{-12,60},{16,60},{16,31.54},{8,31.54}},  color={0,127,255}));
+          {-12,54},{-12,60},{16,60},{16,31.54},{6,31.54}},  color={0,127,255}));
   connect(senTem1.T, add.u1) annotation (Line(points={{-36,65},{-36,70},{-48,70},
           {-48,-18},{16,-18}}, color={0,0,127}));
   connect(switch1.y, boundary1.m_flow_in) annotation (Line(points={{-57,6},{-54,
